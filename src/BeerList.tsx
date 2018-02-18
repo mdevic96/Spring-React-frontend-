@@ -31,8 +31,7 @@ export default class BeerList extends React.Component<{}, any> {
     }
 
     render() {
-        const beers = this.state.beers;
-        const isLoading = this.state.isLoading;
+        const { beers, isLoading } = this.state;
 
         if (isLoading) {
             return <h2>Loading...</h2>;
@@ -44,7 +43,7 @@ export default class BeerList extends React.Component<{}, any> {
                     <Card key={beer.id} style={{marginBottom: 10, marginTop: 20}}>
                         <CardHeader>{beer.name}</CardHeader>
                         <CardBody>
-                            <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+                            <CardText>{beer.description}</CardText>
                             <Button onClick={() => this.handleDelete(beer.id)} outline={true} color="danger" style={{marginRight: 10}}>Delete</Button>
                             <Button outline={true} color="info">Change</Button>
                         </CardBody>
