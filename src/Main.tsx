@@ -12,7 +12,7 @@ export default class Main extends React.Component {
             <HashRouter>
                 <Container fluid={false}>
                 <Navbar color="faded" light={true}>
-                    <NavbarBrand href="/">Logo</NavbarBrand>
+                    <NavbarBrand href="/">Beer App</NavbarBrand>
                         <Nav className="ml-auto">
                             <NavItem>
                                 <NavLink to="/application"><Button>Aplikacija</Button></NavLink>
