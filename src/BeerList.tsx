@@ -1,5 +1,4 @@
 import * as React from 'react';
-import './App.css';
 import { Card, CardText, Button, CardHeader, CardBody } from 'reactstrap';
 
 export default class BeerList extends React.Component<{}, any> {
