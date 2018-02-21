@@ -1,5 +1,7 @@
 import * as React from 'react';
+import axios from 'axios';
 import { Card, CardText, Button, CardHeader, CardBody } from 'reactstrap';
+import AddNewBeerButtonComponent from './AddNewBeerButtonComponent';
 
 export default class BeerList extends React.Component<{}, any> {
 
@@ -12,38 +14,40 @@ export default class BeerList extends React.Component<{}, any> {
         };
 
         this.handleDelete.bind(this);
+        this.getBeers.bind(this);
     }
 
-    handleDelete(id: any) {
-        fetch('http://localhost:8080/beers/' + id, {
-            method: 'delete'
-        })
-        .then(response => response.json());
+    handleDelete(beer: any) {
+        axios.post('http://localhost:8080/beers/delete', beer)
+        .then(() => this.getBeers());
     }
 
     componentDidMount() {
-        this.setState({isLoading: this.state.isLoading});
+        this.setState({isLoading: true});
+        this.getBeers();
+    }
 
-        fetch('http://localhost:8080/beers')
-            .then(response => response.json())
-            .then(data => this.setState({beers: data, isLoading: false}));
+    getBeers() {
+        axios.get('http://localhost:8080/beers/fetch-all')
+            .then(data => this.setState({beers: data.data, isLoading: false}));
     }
 
     render() {
-        const { beers, isLoading } = this.state;
-
-        if (isLoading) {
+        if (this.state.isLoading) {
             return <h2>Loading...</h2>;
         }
 
+        const beers = this.state.beers;
+
         return(
             <div>
-                {beers.map((beer: any) => 
+                <AddNewBeerButtonComponent onAdd={this.getBeers()}/>
+                {beers.map((beer: any) =>
                     <Card key={beer.id} style={{marginBottom: 10, marginTop: 20}}>
                         <CardHeader>{beer.name}</CardHeader>
                         <CardBody>
                             <CardText>{beer.description}</CardText>
-                            <Button onClick={() => this.handleDelete(beer.id)} outline={true} color="danger" style={{marginRight: 10}}>Delete</Button>
+                            <Button onClick={() => this.handleDelete(beer)} outline={true} color="danger" style={{marginRight: 10}}>Delete</Button>
                             <Button outline={true} color="info">Change</Button>
                         </CardBody>
                     </Card>
