@@ -11,7 +11,7 @@ export default class Home extends React.Component {
                     <p className="lead">
                         Jednostavan sajt
                         za aplikaciju koju sam napravio
-                        spojeći Javu i React.
+                        pomoću Jave i React-a.
                         <br />
                         Nadam se da ce vam se svideti &#9786;
                     </p>

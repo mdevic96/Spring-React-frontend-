@@ -8,11 +8,15 @@ export default class AddNewBeerComponentButton extends React.Component<any, any>
         super(props);
 
         this.state = {
-            modal: false
+            modal: false,
+            id: null,
+            name: null,
+            description: null
         };
 
         this.toggle = this.toggle.bind(this);
         this.add = this.add.bind(this);
+        this.myClick = this.myClick.bind(this);
     }
 
     toggle() {
@@ -22,18 +26,25 @@ export default class AddNewBeerComponentButton extends React.Component<any, any>
     }
 
     add() {
-        axios.post('http://localhost:8080/beers', {
-            id: this.refs.id,
-            name: this.refs.name,
-            description: this.refs.description
+        if(this.state.id) {
+            axios.post('http://localhost:8080/beers/create', {
+            id: this.state.id,
+            name: this.state.name,
+            description: this.state.description
         })
-        .then(response => response.data);
+        .then(() => this.props.onAdd());
+        }
+    }
+
+    myClick() {
+        this.add();
+        this.toggle();
     }
 
     render() {
         return(
             <div>
-                <Button color="primary" size="md" style={{marginTop: 25}} onClick={this.toggle}>Add New Beer</Button>
+                <Button color="primary" size="md" style={{marginTop: 25, marginBottom: 25}} onClick={this.toggle}>Add New Beer</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle}>
                     <ModalHeader toggle={this.toggle}>New Beer</ModalHeader>
                     <ModalBody>
@@ -41,27 +52,27 @@ export default class AddNewBeerComponentButton extends React.Component<any, any>
                             <FormGroup row={true}>
                                 <Label sm={2}>ID</Label>
                                 <Col sm={10}>
-                                    <Input id="id" />
+                                    <Input onChange={event => this.setState({id: event.target.value})} />
                                 </Col>
                             </FormGroup>
 
                             <FormGroup row={true}>
                                 <Label sm={2}>Name</Label>
                                 <Col sm={10}>
-                                    <Input id="name" />
+                                    <Input onChange={event => this.setState({name: event.target.value})} />
                                 </Col>
                             </FormGroup>
 
                             <FormGroup row={true}>
                                 <Label sm={2}>Description</Label>
                                 <Col sm={10}>
-                                    <Input id="description" />
+                                    <Input onChange={event => this.setState({description: event.target.value})} />
                                 </Col>
                             </FormGroup>
                         </Form>
                     </ModalBody>
                     <ModalFooter>
-                        <Button onClick={this.add} color="primary">Save</Button>
+                        <Button onClick={this.myClick} color="primary">Save</Button>
                     </ModalFooter>
                 </Modal>
             </div>
