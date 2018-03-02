@@ -3,6 +3,7 @@ import { Card, CardText, Button, CardHeader, CardBody } from 'reactstrap';
 import axios from 'axios';
 import AddNewBeerButtonComponent from './AddNewBeerButtonComponent';
 import AlertComponent from './AlertComponent';
+import ChangeButtonComponent from './ChangeButtonComponent';
 
 export default class BeerList extends React.Component<{}, any> {
 
@@ -45,7 +46,7 @@ export default class BeerList extends React.Component<{}, any> {
 
         return(
             <div>
-                <AddNewBeerButtonComponent onAdd={this.getBeers()} />
+                <AddNewBeerButtonComponent onAdd={() => this.getBeers()} />
 
                 {beers.length < 1 && <AlertComponent />}
                 
@@ -54,8 +55,8 @@ export default class BeerList extends React.Component<{}, any> {
                         <CardHeader>{beer.name}</CardHeader>
                         <CardBody>
                             <CardText>{beer.description}</CardText>
-                            <Button onClick={() => this.handleDelete(beer)} outline={true} color="danger" style={{marginRight: 10}}>Delete</Button>
-                            <Button outline={true} color="info">Change</Button>
+                            <Button onClick={() => this.handleDelete(beer)} color="danger" style={{marginRight: 10, marginBottom: 10}}>Delete</Button>
+                            <ChangeButtonComponent onChangeF={() => this.getBeers()} />
                         </CardBody>
                     </Card>
                     )}
