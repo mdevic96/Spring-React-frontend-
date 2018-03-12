@@ -44,7 +44,7 @@ export default class AddNewBeerComponentButton extends React.Component<any, any>
     render() {
         return(
             <div>
-                <Button color="primary" size="md" style={{marginTop: 25, marginBottom: 25}} onClick={this.toggle}>Add New Beer</Button>
+                <Button color="primary" size="md" style={{marginTop: 20, marginBottom: 25}} onClick={this.toggle}>Add New Beer</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle}>
                     <ModalHeader toggle={this.toggle}>New Beer</ModalHeader>
                     <ModalBody>

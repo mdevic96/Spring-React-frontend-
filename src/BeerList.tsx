@@ -55,8 +55,8 @@ export default class BeerList extends React.Component<{}, any> {
                         <CardHeader>{beer.name}</CardHeader>
                         <CardBody>
                             <CardText>{beer.description}</CardText>
-                            <Button onClick={() => this.handleDelete(beer)} color="danger" style={{marginRight: 10, marginBottom: 10}}>Delete</Button>
-                            <ChangeButtonComponent onChangeF={() => this.getBeers()} />
+                                <Button onClick={() => this.handleDelete(beer)} color="danger" className="float-left" style={{marginRight: 10}}>Delete</Button>
+                                <ChangeButtonComponent beer={beer} onChangeF={() => this.getBeers()} />
                         </CardBody>
                     </Card>
                     )}

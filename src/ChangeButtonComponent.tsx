@@ -7,7 +7,7 @@ export default class ChangeButtonComponent extends React.Component<any, any> {
       super(props);
       this.state = {
         modal: false,
-        id: null,
+        id: this.props.beer.id,
         name: null,
         description: null
       };
@@ -25,6 +25,7 @@ export default class ChangeButtonComponent extends React.Component<any, any> {
 
     change() {
         axios.post('http://localhost:8080/beers/update', {
+            id: this.state.id,
             name: this.state.name,
             description: this.state.description
         })
@@ -39,18 +40,11 @@ export default class ChangeButtonComponent extends React.Component<any, any> {
     render() {
       return (
         <div>
-          <Button color="primary" onClick={this.toggle}>Change</Button>
+          <Button color="primary" onClick={this.toggle} className="float-left">Change</Button>
           <Modal isOpen={this.state.modal} toggle={this.toggle}>
             <ModalHeader toggle={this.toggle}>Change Beer</ModalHeader>
             <ModalBody>
                 <Form>
-                <FormGroup row={true}>
-                        <Label sm={2}>ID</Label>
-                        <Col sm={10}>
-                            <Input onChange={event => this.setState({id: event.target.value})} />
-                        </Col>
-                    </FormGroup>
-
                     <FormGroup row={true}>
                         <Label sm={2}>Name</Label>
                         <Col sm={10}>

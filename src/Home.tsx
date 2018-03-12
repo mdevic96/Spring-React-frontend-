@@ -16,7 +16,7 @@ export default class Home extends React.Component {
                         Nadam se da ce vam se svideti &#9786;
                     </p>
                     <hr className="my-2" />
-                    <p>
+                    <p className="lead">
                         Osnovna CRUD aplikacija koja se bavi pivom!
                     </p>
                     <p className="lead">
